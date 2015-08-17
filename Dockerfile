@@ -17,5 +17,7 @@ RUN wget https://github.com/joomla/joomla-cms/releases/download/3.4.3/Joomla_3.4
 RUN chown -R www-data:www-data /var/www/joomla
 RUN chmod -R 775 /var/www/joomla
 RUN sed -i '12s/DocumentRoot \/var\/www\/html/DocumentRoot \/var\/www\/joomla/' /etc/apache2/sites-enabled/000-default.conf
+ADD database.xml /var/www/joomla/installation/model/forms/database.xml
+
 EXPOSE 80
 CMD ["apache2ctl", "-D", "FOREGROUND"]
