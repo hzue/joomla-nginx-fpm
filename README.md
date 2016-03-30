@@ -2,7 +2,7 @@
 
 ## Usage
 ```
-docker run --link some-db:db -d -p port_number:80 seterrychen/joomla
+docker run --link some-db:db -d -p port_number:80 seterrychen/joomla-without-database
 ```
 Browse to http://IP:port_number to setup your Joomla and fill database host name **some-db**.
 
