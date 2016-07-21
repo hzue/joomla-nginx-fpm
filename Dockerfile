@@ -10,16 +10,14 @@ ENV DB_PASSWORD joomla
 RUN curl -o joomla.zip -SL https://github.com/joomla/joomla-cms/releases/download/${JOOMLA_VERSION}/Joomla_${JOOMLA_VERSION}-Stable-Full_Package.zip \
   && echo "$JOOMLA_SHA1 *joomla.zip" | sha1sum -c - \
   && rm /var/www/html/index.php \
-  && mkdir /var/www/html/joomla \
-  && unzip joomla.zip -d /var/www/html/joomla \
-  && chown -R nginx:nginx /var/www/html/joomla \
+  && mkdir /var/joomla \
+  && unzip joomla.zip -d /var/joomla \
+  && chown -R nginx:nginx /var/joomla \
   && rm joomla.zip
+
+RUN sed -r 's|^(Options -Indexes.*)$|#\1|' /var/joomla/htaccess.txt > /var/joomla/.htaccess
 
 ADD entrypoint.sh /entrypoint.sh
 
-# change site config
-RUN sed -i 's|location / |location /joomla/ |' /etc/nginx/sites-available/default.conf \
-  && sed -i 's|/index.php|/joomla/index.php|' /etc/nginx/sites-available/default.conf \
-  && sed -r 's|^(Options -Indexes.*)$|#\1|' /var/www/html/joomla/htaccess.txt > /var/www/html/joomla/.htaccess
-
+VOLUME ["/usr/joomla"]
 CMD ["/entrypoint.sh"]
