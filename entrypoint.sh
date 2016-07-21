@@ -9,8 +9,7 @@ sed -i 's|label="INSTL_DATABASE_NAME_LABEL"$|label="INSTL_DATABASE_NAME_LABEL" d
 # setting RELATIVE_URL_ROOT
 if [ x"$JOOMLA_RELATIVE_URL_ROOT" != x"" ]; then
   sed -i 's|location / |location '"$JOOMLA_RELATIVE_URL_ROOT"'/ |' /etc/nginx/sites-available/default.conf
-  sed -i 's|location / |location '"$JOOMLA_RELATIVE_URL_ROOT"'/ |' /etc/nginx/sites-available/default.conf
-  sed -i 's|/index.php|'"$JOOMLA_RELATIVE_URL_ROOT"'/index.php|' /etc/nginx/sites-available/default.conf
+  sed -i 's|$uri/ /index.php|$uri/ '"$JOOMLA_RELATIVE_URL_ROOT"'/index.php|' /etc/nginx/sites-available/default.conf
   ln -s /var/joomla /var/www/html$JOOMLA_RELATIVE_URL_ROOT
 else
   rm -r /var/www/html
