@@ -1,14 +1,21 @@
-# docker-joomla
+# joomla-nginx-fpm
+
+Joomla on Nginx. Using php7 7.0.8, Nginx 1.10.1 and Alpine 3.4.
 
 ## Usage
 ```
-docker run --link some-db:db -d -p port_number:80 seterrychen/joomla-without-database
+docker run -d -p 8080:80 \
+           -e DB_HOST=mysql \
+           -e DB_USER=joomla \
+           -e DB_DB_PASSWORD=joomla \
+           -e DB_NAME=joomla \
+           --link some-db:mysql seterrychen/joomla-nginx-fpm:3.6.0
 ```
-Browse to http://IP:port_number to setup your Joomla and fill database host name **some-db**.
+Browse to http://IP:port_number to setup your Joomla.
 
 
 ## Note
-Use joomla image should create another container of database to store data, such as:
+Use the image should create a database container to store data, such as:
 ```
 docker run -d --name some-db \
            -e MYSQL_ROOT_PASSWORD=joomla \
@@ -17,4 +24,3 @@ docker run -d --name some-db \
            -e MYSQL_DATABASE=joomla \
            mariadb
 ```
-Or using external database.
