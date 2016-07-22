@@ -19,6 +19,7 @@ Browse to http://localhost:8080/joomla/ to setup your Joomla.
 - **DB_PASSWORD**: default value is joomla
 - **DB_NAME**: default value is joomla
 - **JOOMLA_RELATIVE_URL_ROOT**: no default value
+- **IPV6_LISTEN**: default value is fault to close IPV6 listener
 
 
 ## Note

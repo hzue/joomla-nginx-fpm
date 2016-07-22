@@ -16,4 +16,9 @@ else
   ln -s /var/joomla /var/www/html
 fi
 
+# setting ipv6 config
+if [ x"$IPV6_LISTEN" == x"false" ]; then
+    sed -i 's|listen   \[\:\:\]\:80|#listen   \[\:\:\]\:80|' /etc/nginx/sites-available/default.conf
+fi
+
 exec /bin/bash /start.sh
